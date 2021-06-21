@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+
+    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="header" th:fragment="mymenu(activeTab)">
+    <nav>
+        <div>
+            <ul class="menu">
+                <li th:classappend="${activeTab == 'Home' ? 'active' : ''}">
+                    <a class="menuLink"  th:href="@{/}">Главная страница</a>
+                </li>
+                <li th:classappend="${activeTab == 'Shop' ? 'active' : ''}">
+                    <a class="menuLink" th:href="@{/products}">Каталог товаров</a>
+                </li>
+                <li th:classappend="${activeTab == 'ShoppingCart' ? 'active' : ''}">
+                    <a class="menuLink" th:href="@{/cart}">Корзина</a>
+                </li>
+                <li sec:authorize="hasRole('ADMIN')">
+                    <a class="menuLink" th:href="@{/admin}">Управление</a>
+                </li>
+                <div sec:authorize="isAnonymous()">
+                    <a class="menuLink" th:href="@{/login}">Войти</a>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <li th:classappend="${activeTab == 'Profile' ? 'active' : ''}">
+                        <a class="menuLink" th:href="@{/profile}">Личный кабинет</a>
+                    </li>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <li>
+                        <form th:action="@{/logout}" method="POST">
+                            <input class="logoutButton" type="submit" value="Logout"/>
+                        </form>
+                    </li>
+                </div>
+            </ul>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

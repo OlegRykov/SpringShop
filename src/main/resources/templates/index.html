@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+
+    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+    <top>
+        <div>
+            <nav>
+                <div th:replace="~{menu :: mymenu(Home)}">
+                </div>
+            </nav>
+        </div>
+    </top>
+    <div class="content">
+
+    </div>
+    <footer>
+        <div>
+            <nav>
+                <div th:replace="~{footer :: myfooter}">
+                </div>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>

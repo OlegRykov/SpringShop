@@ -1,0 +1,58 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+html, body, .loginContainer {
+    height:100%;
+}
+
+body, .loginContainer{
+	display: flex;
+	flex-direction: column;
+}
+
+.header{
+    background: #316099;
+}
+
+.menu {
+    padding: 25px;
+	display:flex;
+	justify-content: space-between;
+	list-style: none;
+}
+
+.menuLink {
+    text-decoration: none;
+    color: #f5f5f5;
+}
+
+.logoutButton{
+    padding: 5px;
+    background: #f5f5f5;
+    color: #316099;
+}
+
+.content{
+    flex: 1;
+}
+
+.footer {
+    padding: 15px;
+	background: #316099;
+}
+
+.footerText{
+    color: #f5f5f5;
+}
+
+.loginForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loginContainer{
+    justify-content: space-between;
+}
