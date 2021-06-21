@@ -1,0 +1,86 @@
+CREATE SCHEMA `shop` DEFAULT CHARACTER SET utf8mb4 ;
+
+DROP TABLE IF EXISTS products;
+
+CREATE TABLE `shop`.`products` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(45) NULL,
+  `price` DOUBLE NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS roles;
+
+CREATE TABLE `shop`.`roles` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE `shop`.`users` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NULL,
+  `password` VARCHAR(80) NULL,
+  `first_name` VARCHAR(45) NULL,
+  `last_name` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  `phone` VARCHAR(20) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS users_roles;
+CREATE TABLE `shop`.`users_roles` (
+  `user_id` INT NOT NULL,
+  `role_id` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `role_id`));
+
+  ALTER TABLE `shop`.`users_roles`
+  ADD INDEX `roles_id_idx` (`role_id` ASC) VISIBLE;
+  ;
+  ALTER TABLE `shop`.`users_roles`
+  ADD CONSTRAINT `user_id`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `shop`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  ADD CONSTRAINT `roles_id`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `shop`.`roles` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+    DROP TABLE IF EXISTS orders_item;
+
+    CREATE TABLE `shop`.`orders_item` (
+      `id` INT NOT NULL,
+      `quantity` INT NULL,
+      `item_price` DECIMAL(10,2) NULL,
+      `total_price` DECIMAL(10,2) NULL,
+      `product_id` INT NULL,
+      PRIMARY KEY (`id`),
+      INDEX `product_id_idx` (`product_id` ASC) VISIBLE,
+      CONSTRAINT `product_id`
+        FOREIGN KEY (`product_id`)
+        REFERENCES `shop`.`products` (`id`)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION)
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8mb4;
+
+    INSERT INTO `shop`.`roles` (`name`) VALUES ('ROLE_ADMIN');
+    INSERT INTO `shop`.`roles` (`name`) VALUES ('ROLE_MANAGER');
+    INSERT INTO `shop`.`roles` (`name`) VALUES ('ROLE_USER');
+
+    INSERT INTO `shop`.`users` (`username`, `password`, `first_name`, `last_name`, `email`, `phone`)
+    VALUES ('Oleg', '$2a$10$OD2w3FV7oJb8a9vhsL9CzuIPRxL3IkZNLg0ifAUHoNE5FslkU7eti', 'Oleg', 'Rykov', 'oleg@mail.ru', '+79998887766');
+    INSERT INTO `shop`.`users` (`username`, `password`, `first_name`, `last_name`, `email`, `phone`)
+     VALUES ('Bob', '$2a$10$dhPeKUYXkJFzvMwKfo6yx.G4jLDLy4dmmh/Junc8W4MjFIndSMKsO', 'Bob', 'Dilan', 'bd@mail.ru', '+78887776655');
+
+    INSERT INTO `shop`.`users_roles` (`user_id`, `role_id`) VALUES ('1', '1');
+    INSERT INTO `shop`.`users_roles` (`user_id`, `role_id`) VALUES ('2', '3');
+
